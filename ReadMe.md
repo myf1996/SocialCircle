@@ -21,7 +21,7 @@ $ npm install
 
 ```bash
 NODE_ENV=dev
-PORT=3000
+PORT=3001
 CONNECTION_LEVEL=3
 ```
 
