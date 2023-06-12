@@ -22,7 +22,7 @@ $ npm install
 ```bash
 NODE_ENV=dev
 PORT=3001
-CONNECTION_LEVEL=3
+CONNECTION_LEVEL=4
 ```
 
 ## Running the app

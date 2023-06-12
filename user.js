@@ -1,4 +1,5 @@
 const db = require("./database");
+const systemConfig = require("./config")
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -108,7 +109,7 @@ const friend = async (req, res) => {
 const generateDbSearchQuery = (dto) => {
   let search = dto.search || '';
   let userId = dto.userId;
-  const connectionLevel = process.env.CONNECTION_LEVEL || 1;
+  const connectionLevel = systemConfig.connectionLevel; //process.env.CONNECTION_LEVEL || 4;
   let query = `SELECT u.id, u.name, 
   CASE
   `;
