@@ -8,7 +8,7 @@ const init = async () => {
   await db.run('CREATE TABLE Friends (id INTEGER PRIMARY KEY AUTOINCREMENT, userId int, friendId int);');
   const users = [];
   const names = ['foo', 'bar', 'baz'];
-  for (i = 0; i < 27000; ++i) {
+  for (i = 0; i < 2700; ++i) {
     let n = i;
     let name = '';
     for (j = 0; j < 3; ++j) {
@@ -21,7 +21,7 @@ const init = async () => {
   }
   const friends = users.map(() => []);
   for (i = 0; i < friends.length; ++i) {
-    const n = 10 + Math.floor(90 * Math.random());
+    const n = 1 + Math.floor(9 * Math.random());
     const list = [...Array(n)].map(() => Math.floor(friends.length * Math.random()));
     list.forEach((j) => {
       if (i === j) {
@@ -126,19 +126,19 @@ const generateDbSearchQuery = (dto) => {
       tmp = ''
       for(let j=1; j < i; j++){
         tmp += `
-        INNER JOIN Friends f${j+1} ON f${j+1}.userId = f1.friendId`
+        JOIN Friends f${j+1} ON f${j+1}.userId = f1.friendId AND f1.userId = ${userId}`
       }
       tmp += `
-      WHERE f1.userId = ${userId} AND f${i}.friendId = u.id`
+      WHERE f${i}.friendId = u.id`
       query += tmp
     } else {
       tmp = ''
       for(let j=1; j < i; j++){
         tmp += `
-        INNER JOIN Friends f${j+1} ON f${j+1}.userId = f${j}.friendId `
+        JOIN Friends f${j+1} ON f${j+1}.userId = f${j}.friendId AND f1.userId = ${userId}`
       }
       tmp += `
-      WHERE f1.userId = ${userId} AND (f${i}.friendId = u.id OR f1.friendId = u.id)`
+      WHERE f${i}.friendId = u.id OR f1.friendId = u.id`
       query += tmp
     }
     tmp = `
